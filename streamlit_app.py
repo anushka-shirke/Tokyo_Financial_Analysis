@@ -11,7 +11,7 @@ import plotly.express as px
 # Page configuration
 st.set_page_config(page_title="Tokyo Stock Explorer", layout="wide")
 
-# Background Image Function
+# Background Image with Black Text
 def add_bg_from_url():
     st.markdown(
          f"""
@@ -20,6 +20,7 @@ def add_bg_from_url():
              background-image: url("https://images.unsplash.com/photo-1568084680786-a84f91d1153c");
              background-attachment: fixed;
              background-size: cover;
+             color: black;
          }}
          </style>
          """,
