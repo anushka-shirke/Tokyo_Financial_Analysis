@@ -1,5 +1,6 @@
 # Tokyo_Financial_Analysis
 Top Japanese companies last two year stock prices. 
+
 Project Title: Tokyo Stock Price Explorer
 Description:
 Tokyo Stock Price Explorer is an interactive web application built using Streamlit, designed to visualize and analyze the stock prices of major Japanese companies. The app fetches data from Yahoo Finance using yfinance and provides users with a dynamic interface to explore stock price trends over time.
@@ -20,14 +21,14 @@ Downloadable Data: Users can download the full dataset of stock prices in CSV fo
 Intuitive UI: The app features a user-friendly interface with a sidebar for easy stock selection and chart type preferences.
 
 Technologies Used:
-Python for core programming logic.
+1) Python for core programming logic.
 
-Streamlit for building the interactive web app.
+2) Streamlit for building the interactive web app.
 
-yfinance to fetch stock data from Yahoo Finance.
+3) yfinance to fetch stock data from Yahoo Finance.
 
-Seaborn & Plotly for data visualization.
+4) Seaborn & Plotly for data visualization.
 
-Pandas for data manipulation and cleaning.
+5) Pandas for data manipulation and cleaning.
 
-Matplotlib for enhanced plotting capabilities.
+6) Matplotlib for enhanced plotting capabilities.
