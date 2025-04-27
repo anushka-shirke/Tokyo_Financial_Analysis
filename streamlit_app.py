@@ -20,7 +20,13 @@ def add_bg_from_url():
              background-image: url("https://images.unsplash.com/photo-1568084680786-a84f91d1153c");
              background-attachment: fixed;
              background-size: cover;
-             color: black;
+             color: black; /* <-- Ensures black text color for better visibility */
+         }}
+         h1, h2, h3, h4, h5, h6, p {{
+             color: black; /* <-- Ensures headings and paragraphs have black text */
+         }}
+         .stSidebar {{
+             color: black; /* <-- Sidebar text color */
          }}
          </style>
          """,
