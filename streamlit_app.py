@@ -11,27 +11,23 @@ import plotly.express as px
 # Page configuration
 st.set_page_config(page_title="Tokyo Stock Explorer", layout="wide")
 
-# Background Image with Black Text using Custom HTML and CSS
-def add_bg_from_url():
-    # Use the provided image URL
+# Remove Background Image and Style (Just default background and black text)
+def remove_bg():
     st.markdown(
-         f"""
+         """
          <style>
          .stApp {{
-             background-image: url("https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
-             background-attachment: fixed;
-             background-size: cover;
-             background-position: center center;
-             color: black;
+             background-color: white;  /* Default background color */
+             color: black;  /* Text color */
          }}
          .stApp > .main {{
-             background-color: rgba(255, 255, 255, 0.7);  /* Optional: Adds a semi-transparent background to text for better readability */
+             background-color: rgba(255, 255, 255, 0.8);  /* Slight transparency for better readability */
          }}
          h1, h2, h3, h4, h5, h6, p {{
-             color: black;
+             color: black;  /* Ensuring all text is black */
          }}
          .stSidebar {{
-             background-color: rgba(255, 255, 255, 0.9); /* Optional: Add semi-transparent background to sidebar */
+             background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a slight transparent background to sidebar */
              color: black;
          }}
          </style>
@@ -39,7 +35,7 @@ def add_bg_from_url():
          unsafe_allow_html=True
      )
 
-add_bg_from_url()
+remove_bg()
 
 # App Title
 st.title("📈 Tokyo Stock Price Explorer")
