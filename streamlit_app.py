@@ -13,20 +13,21 @@ st.set_page_config(page_title="Tokyo Stock Explorer", layout="wide")
 
 # Background Image with Black Text
 def add_bg_from_url():
+    # Use your provided image URL
     st.markdown(
          f"""
          <style>
          .stApp {{
-             background-image: url("https://images.unsplash.com/photo-1568084680786-a84f91d1153c");
+             background-image: url("https://images.pexels.com/photos/2339009/pexels-photo-2339009.jpeg?auto=compress&cs=tinysrgb&w=600"); /* <-- Your Image URL */
              background-attachment: fixed;
              background-size: cover;
-             color: black; /* <-- Ensures black text color for better visibility */
+             color: black; /* Ensures black text color for better visibility */
          }}
          h1, h2, h3, h4, h5, h6, p {{
-             color: black; /* <-- Ensures headings and paragraphs have black text */
+             color: black; /* Ensures headings and paragraphs have black text */
          }}
          .stSidebar {{
-             color: black; /* <-- Sidebar text color */
+             color: black; /* Sidebar text color */
          }}
          </style>
          """,
