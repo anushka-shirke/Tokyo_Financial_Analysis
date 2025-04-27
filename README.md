@@ -2,6 +2,7 @@
 Top Japanese companies last two year stock prices. 
 
 Project Title: Tokyo Stock Price Explorer
+
 Description:
 Tokyo Stock Price Explorer is an interactive web application built using Streamlit, designed to visualize and analyze the stock prices of major Japanese companies. The app fetches data from Yahoo Finance using yfinance and provides users with a dynamic interface to explore stock price trends over time.
 
