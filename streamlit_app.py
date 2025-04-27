@@ -2,22 +2,41 @@
 
 import streamlit as st
 import pandas as pd
-import datetime 
+import datetime
 import yfinance as yf
-import seaborn as sb
+import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
 
-# Streamlit page config
+# Page configuration
 st.set_page_config(page_title="Tokyo Stock Explorer", layout="wide")
 
-st.title("Tokyo Stock Price Explorer 📈")
-st.write("Explore major Japanese companies' stock data between April 2023 and April 2025.")
+# Background Image Function
+def add_bg_from_url():
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://images.unsplash.com/photo-1568084680786-a84f91d1153c");
+             background-attachment: fixed;
+             background-size: cover;
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
 
-# Set start and end dates
-s = datetime.datetime(2023, 4, 1)
-e = datetime.datetime(2025, 4, 27)
+add_bg_from_url()
 
-# Download stock data
+# App Title
+st.title("📈 Tokyo Stock Price Explorer")
+st.write("Explore major Japanese companies' stock prices between April 2023 and April 2025.")
+
+# Dates
+start_date = datetime.datetime(2023, 4, 1)
+end_date = datetime.datetime(2025, 4, 27)
+
+# Load data function
 @st.cache_data
 def load_data():
     companies = {
@@ -35,43 +54,32 @@ def load_data():
     
     frames = []
     for name, ticker in companies.items():
-        data = yf.download(ticker, start=s, end=e)
+        data = yf.download(ticker, start=start_date, end=end_date)
         data.columns = data.columns.get_level_values(0)
         data = data.reset_index()
         data['Symbol'] = name
         frames.append(data)
     
     df = pd.concat(frames, axis=0)
-    
     df['Price_change'] = df['Close'] - df['Open']
     df['High_Low_Spread'] = df['High'] - df['Low']
     df['Close_Open_Spread'] = df['Close'] - df['Open']
-    
     return df
 
-# Load data
-df = load_data()
+# Show loading spinner
+with st.spinner('Fetching stock data... Please wait...'):
+    df = load_data()
 
-# Show the available companies
-symbols = df.Symbol.unique()
-
+# Sidebar - Stock selection
 st.sidebar.header("Select Stock")
+symbols = df.Symbol.unique()
 selected_stock = st.sidebar.selectbox("Choose a stock to visualize:", symbols)
 
-# Filter data
-stk = df[df.Symbol == selected_stock]
+# Sidebar - Chart settings
+st.sidebar.header("Chart Settings")
+chart_type = st.sidebar.radio("Choose chart type:", ['Static (Seaborn)', 'Interactive (Plotly)'])
 
-# Plot
-st.subheader(f"Closing Price Trend for {selected_stock}")
-fig, ax = plt.subplots(figsize=(12,6))
-sb.lineplot(x=stk.Date, y=stk.Close, ax=ax)
-plt.xticks(rotation=45)
-plt.xlabel("Date")
-plt.ylabel("Close Price (JPY)")
-plt.title(f"{selected_stock} Stock Price Over Time")
-st.pyplot(fig)
-
-# Option to download the CSV
+# Sidebar - Download data
 st.sidebar.header("Download Data")
 @st.cache_data
 def convert_df(df):
@@ -86,6 +94,25 @@ st.sidebar.download_button(
     mime='text/csv',
 )
 
-# Optional: Show full dataset if needed
-if st.checkbox("Show full dataset"):
+# Filter selected stock
+stk = df[df.Symbol == selected_stock]
+
+# Main Area - Plotting
+st.subheader(f"📊 Closing Price Trend for {selected_stock}")
+
+if chart_type == 'Static (Seaborn)':
+    fig, ax = plt.subplots(figsize=(12, 6))
+    sns.lineplot(x=stk.Date, y=stk.Close, ax=ax)
+    plt.xticks(rotation=45)
+    plt.xlabel("Date")
+    plt.ylabel("Close Price (JPY)")
+    plt.title(f"{selected_stock} Stock Price Over Time")
+    st.pyplot(fig)
+else:
+    fig = px.line(stk, x='Date', y='Close', title=f"{selected_stock} Stock Price Over Time (Interactive)")
+    fig.update_xaxes(rangeslider_visible=True)
+    st.plotly_chart(fig, use_container_width=True)
+
+# Checkbox - Show Full Dataset
+if st.checkbox("Show Full Dataset"):
     st.dataframe(df)
