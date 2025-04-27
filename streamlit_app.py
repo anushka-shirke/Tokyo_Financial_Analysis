@@ -11,7 +11,7 @@ import plotly.express as px
 # Page configuration
 st.set_page_config(page_title="Tokyo Stock Explorer", layout="wide")
 
-# Background Image with Black Text
+# Background Image with Black Text using Custom HTML and CSS
 def add_bg_from_url():
     # Use the provided image URL
     st.markdown(
@@ -22,13 +22,17 @@ def add_bg_from_url():
              background-attachment: fixed;
              background-size: cover;
              background-position: center center;
-             color: black; /* Ensures black text color for better visibility */
+             color: black;
+         }}
+         .stApp > .main {{
+             background-color: rgba(255, 255, 255, 0.7);  /* Optional: Adds a semi-transparent background to text for better readability */
          }}
          h1, h2, h3, h4, h5, h6, p {{
-             color: black; /* Ensures headings and paragraphs have black text */
+             color: black;
          }}
          .stSidebar {{
-             color: black; /* Sidebar text color */
+             background-color: rgba(255, 255, 255, 0.9); /* Optional: Add semi-transparent background to sidebar */
+             color: black;
          }}
          </style>
          """,
